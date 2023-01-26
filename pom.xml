@@ -46,12 +46,15 @@
             <version>2.12.2</version>
         </dependency>
 
-        <!--邮件发送
+        <!--邮件发送-->
         <dependency>
-            <groupId>eu.ocathain.com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.5.4</version>
-        </dependency>-->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
