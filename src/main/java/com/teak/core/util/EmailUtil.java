@@ -4,8 +4,13 @@ import com.teak.core.pojo.EmailPogo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -30,7 +35,7 @@ public class EmailUtil {
         EmailUtil.javaMailSender = javaMailSender;
     }
 
-    public void sendMessage(String receiver, String messageSubject, String messageContent) {
+    public static void sendMessage(String receiver, String messageSubject, String messageContent) {
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom(emailPogo.getSendfrom()); //设置发送方
@@ -40,6 +45,29 @@ public class EmailUtil {
         simpleMailMessage.setSentDate(new Date()); //设置发送时间
 
         javaMailSender.send(simpleMailMessage);
+    }
 
+    public static void sendFilesAndMessage(String receiver, String messageSubject, String messageContent, File[] files) {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            mimeMessageHelper.setFrom(emailPogo.getSendfrom());
+            mimeMessageHelper.setTo(receiver);
+            mimeMessageHelper.setSubject(messageSubject);
+            mimeMessageHelper.setText(messageContent);
+            mimeMessageHelper.setSentDate(new Date());
+            if (files != null && files.length > 0) {
+                Arrays.stream(files).forEach(file -> {
+                    try {
+                        mimeMessageHelper.addAttachment(file.getName(), file);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        javaMailSender.send(mimeMessage);
     }
 }
