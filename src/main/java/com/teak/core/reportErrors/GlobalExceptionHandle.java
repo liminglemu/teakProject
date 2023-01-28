@@ -5,10 +5,10 @@ package com.teak.core.reportErrors;
  * @version 1.0
  * @date 2023/1/23
  */
-public class LrcConversionStrException extends RuntimeException {
+public class GlobalExceptionHandle extends RuntimeException {
     private String message;
 
-    public LrcConversionStrException(String message) {
+    public GlobalExceptionHandle(String message) {
         this.message = message;
     }
 
@@ -17,7 +17,7 @@ public class LrcConversionStrException extends RuntimeException {
         return message;
     }
 
-    public LrcConversionStrException setMessage(String message) {
+    public GlobalExceptionHandle setMessage(String message) {
         this.message = message;
         return this;
     }

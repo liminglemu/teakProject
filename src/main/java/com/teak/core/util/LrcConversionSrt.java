@@ -2,7 +2,7 @@ package com.teak.core.util;
 
 import com.teak.core.enums.MusicPlatformEnum;
 import com.teak.core.function.MyFunction;
-import com.teak.core.reportErrors.LrcConversionStrException;
+import com.teak.core.reportErrors.GlobalExceptionHandle;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -79,7 +79,7 @@ public final class LrcConversionSrt {
         if (firstLine.startsWith("@migu", 1)) {
             return MusicPlatformEnum.GUMI;
         }
-        throw new LrcConversionStrException("无法识别歌词平台，请手动进行修改后重试");
+        throw new GlobalExceptionHandle("无法识别歌词平台，请手动进行修改后重试");
     }
 
     /**

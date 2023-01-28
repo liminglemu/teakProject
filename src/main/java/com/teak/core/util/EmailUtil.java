@@ -26,12 +26,12 @@ public class EmailUtil {
     private static JavaMailSender javaMailSender;
 
     @Autowired
-    public void setEmailPogo(EmailPogo emailPogo) {
+    private void setEmailPogo(EmailPogo emailPogo) {
         EmailUtil.emailPogo = emailPogo;
     }
 
     @Autowired
-    public void setJavaMailSender(JavaMailSender javaMailSender) {
+    private void setJavaMailSender(JavaMailSender javaMailSender) {
         EmailUtil.javaMailSender = javaMailSender;
     }
 
